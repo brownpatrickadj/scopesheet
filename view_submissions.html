@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scope Sheet Submissions</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Submitted Scope Sheets</h1>
+  <div id="loading">Loading...</div>
+  <table id="submissions" style="display: none;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Claim #</th>
+        <th>Insured</th>
+        <th>Address</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>People</th>
+        <th>Description</th>
+        <th>Cost</th>
+        <th>Photo URL</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const supabase = window.supabase.createClient(
+      'https://hobhuqbsiqboovhoipeo.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
+    );
+
+    window.onload = async () => {
+      const { data, error } = await supabase
+        .from('scope_sheets')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (error) {
+        document.getElementById('loading').textContent = `❌ Error loading submissions: ${error.message}`;
+        return;
+      }
+
+      const table = document.getElementById('submissions');
+      const tbody = table.querySelector('tbody');
+      document.getElementById('loading').style.display = 'none';
+      table.style.display = 'table';
+
+      data.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${entry.id}</td>
+          <td>${entry.claim_number}</td>
+          <td>${entry.insured_name}</td>
+          <td>${entry.property_address}</td>
+          <td>${entry.date_of_inspection}</td>
+          <td>${entry.time_of_inspection}</td>
+          <td>${entry.persons_present}</td>
+          <td>${entry.damage_description}</td>
+          <td>${entry.estimated_cost}</td>
+          <td><a href="${entry.photo_url}" target="_blank">Photo</a></td>
+        `;
+        tbody.appendChild(row);
+      });
+    };
+  </script>
+</body>
+</html>

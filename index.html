@@ -28,18 +28,18 @@
         photo_url: params.get('photo_url'),
       };
 
-      // Add .select() to return the inserted row
-      const { data, error } = await supabase
-        .from('scope_sheets')
-        .insert([formData])
-        .select();
+      const { data, error } = await supabase.from('scope_sheets').insert([formData]).select();
 
       if (error) {
-        document.body.innerHTML = `<h2 style="color:red">❌ Error:</h2><pre>${error.message}</pre>`;
+        document.body.innerHTML = `<h2 style="color:red">❌ Error submitting:</h2><pre>${error.message}</pre>`;
         console.error(error);
       } else {
-        document.body.innerHTML = `<h2 style="color:green">✅ Submission successful!</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
+        document.body.innerHTML = `<h2 style="color:green">✅ Submission successful! Redirecting...</h2>`;
         console.log(data);
+        // Wait 2 seconds, then redirect
+        setTimeout(() => {
+          window.location.href = 'view_submissions.html';
+        }, 2000);
       }
     };
   </script>

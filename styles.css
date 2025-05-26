@@ -10,3 +10,35 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
 }
+ <style>
+    .nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 300px;
+      margin: 40px auto;
+    }
+    .nav-buttons a button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .submit-btn {
+      background-color: #004080;
+      color: white;
+    }
+    .submit-btn:hover {
+      background-color: #002d5c;
+    }
+    .view-btn {
+      background-color: #008040;
+      color: white;
+    }
+    .view-btn:hover {
+      background-color: #005c2d;
+    }
+  </style>

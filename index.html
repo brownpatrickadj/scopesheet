@@ -28,7 +28,11 @@
         photo_url: params.get('photo_url'),
       };
 
-      const { data, error } = await supabase.from('scope_sheets').insert([formData]);
+      // Add .select() to return the inserted row
+      const { data, error } = await supabase
+        .from('scope_sheets')
+        .insert([formData])
+        .select();
 
       if (error) {
         document.body.innerHTML = `<h2 style="color:red">❌ Error:</h2><pre>${error.message}</pre>`;

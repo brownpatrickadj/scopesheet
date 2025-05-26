@@ -8,12 +8,14 @@
   <h1>Submitting Scope Sheet...</h1>
 
   <script>
-    window.onload = async () => {
-      const supabase = window.supabase.createClient(
-        'https://hobhuqbsiqboovhoipeo.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
-      );
+    // Initialize Supabase client
+    const supabase = window.supabase.createClient(
+      'https://hobhuqbsiqboovhoipeo.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
+    );
 
+    window.onload = async () => {
+      // Read URL query parameters
       const params = new URLSearchParams(window.location.search);
 
       const formData = {
@@ -28,10 +30,11 @@
         photo_url: params.get('photo_url'),
       };
 
+      // Insert into Supabase
       const { data, error } = await supabase
         .from('scope_sheets')
         .insert([formData])
-        .select();
+        .select(); // request return data
 
       if (error) {
         document.body.innerHTML = `<h2 style="color:red">❌ Error inserting to Supabase:</h2><pre>${error.message}</pre>`;

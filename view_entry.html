@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Scope Sheet</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1>Scope Sheet Details</h1>
+  <div id="loading">Loading details...</div>
+  <div id="entry" style="display:none; margin-top:20px;">
+    <form>
+      <label>Claim Number:<input type="text" id="claim_number" readonly></label>
+      <label>Insured Name:<input type="text" id="insured_name" readonly></label>
+      <label>Property Address:<input type="text" id="property_address" readonly></label>
+      <label>Date of Inspection:<input type="date" id="date_of_inspection" readonly></label>
+      <label>Time of Inspection:<input type="text" id="time_of_inspection" readonly></label>
+      <label>Persons Present:<input type="text" id="persons_present" readonly></label>
+      <label>Damage Description:<textarea id="damage_description" rows="4" readonly></textarea></label>
+      <label>Estimated Cost:<input type="number" id="estimated_cost" readonly></label>
+      <label>Photo URL:<input type="url" id="photo_url" readonly></label>
+    </form>
+    <button onclick="window.history.back()">← Back to list</button>
+  </div>
+
+  <script>
+    const supabase = window.supabase.createClient(
+      'https://hobhuqbsiqboovhoipeo.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
+    );
+
+    window.onload = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) {
+        document.getElementById('loading').textContent = '❌ No ID provided';
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('scope_sheets')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) {
+        document.getElementById('loading').textContent = `❌ Error: ${error.message}`;
+        return;
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('entry').style.display = 'block';
+
+      // populate fields
+      Object.entries(data).forEach(([key, value]) => {
+        const el = document.getElementById(key);
+        if (el) el.value = value;
+      });
+    };
+  </script>
+</body>
+</html>

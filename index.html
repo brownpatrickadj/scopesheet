@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Scope Sheet Submission</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8" />
+  <title>Scope Sheet App Home</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 300px;
+      margin: 40px auto;
+    }
+    .nav-buttons a button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .submit-btn {
+      background-color: #004080;
+      color: white;
+    }
+    .submit-btn:hover {
+      background-color: #002d5c;
+    }
+    .view-btn {
+      background-color: #008040;
+      color: white;
+    }
+    .view-btn:hover {
+      background-color: #005c2d;
+    }
+  </style>
 </head>
 <body>
-  <h1>Submitting Scope Sheet...</h1>
-
-  <script>
-    window.onload = async () => {
-      const supabase = window.supabase.createClient(
-        'https://hobhuqbsiqboovhoipeo.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
-      );
-
-      const params = new URLSearchParams(window.location.search);
-
-      const formData = {
-        claim_number: params.get('claim_number'),
-        insured_name: params.get('insured_name'),
-        property_address: params.get('property_address'),
-        date_of_inspection: params.get('date_of_inspection'),
-        time_of_inspection: params.get('time_of_inspection'),
-        persons_present: params.get('persons_present'),
-        damage_description: params.get('damage_description'),
-        estimated_cost: params.get('estimated_cost'),
-        photo_url: params.get('photo_url'),
-      };
-
-      const { data, error } = await supabase.from('scope_sheets').insert([formData]).select();
-
-      if (error) {
-        document.body.innerHTML = `<h2 style="color:red">❌ Error submitting:</h2><pre>${error.message}</pre>`;
-        console.error(error);
-      } else {
-        document.body.innerHTML = `<h2 style="color:green">✅ Submission successful! Redirecting...</h2>`;
-        console.log(data);
-        // Wait 2 seconds, then redirect
-        setTimeout(() => {
-          window.location.href = 'view_submissions.html';
-        }, 2000);
-      }
-    };
-  </script>
+  <h1>📝 Scope Sheet Manager</h1>
+  <div class="nav-buttons">
+    <a href="form.html">
+      <button class="submit-btn">Submit New Scope Sheet</button>
+    </a>
+    <a href="view_submissions.html">
+      <button class="view-btn">View All Submissions</button>
+    </a>
+  </div>
 </body>
 </html>

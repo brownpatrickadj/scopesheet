@@ -2,17 +2,13 @@
 <html>
 <head>
   <title>Scope Sheet Submissions</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="w3-card-4" style="max-width:1500px;"> 
+<body>
   <h1>Submitted Scope Sheets</h1>
   <div id="loading">Loading...</div>
-  <table id="submissions"  class="w3-table-all">
+  <table id="submissions" style="display: none;">
     <thead>
       <tr>
         <th>ID</th>
@@ -21,10 +17,7 @@
         <th>Address</th>
         <th>Date</th>
         <th>Time</th>
-        <th>People</th>
-        <th>Description</th>
         <th>Cost</th>
-        <th>Photo URL</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -39,11 +32,11 @@
     window.onload = async () => {
       const { data, error } = await supabase
         .from('scope_sheets')
-        .select('*')
+        .select('id, claim_number, insured_name, property_address, date_of_inspection, time_of_inspection, estimated_cost')
         .order('id', { ascending: false });
 
       if (error) {
-        document.getElementById('loading').textContent = `❌ Error loading submissions: ${error.message}`;
+        document.getElementById('loading').textContent = `❌ Error: ${error.message}`;
         return;
       }
 
@@ -54,6 +47,11 @@
 
       data.forEach(entry => {
         const row = document.createElement('tr');
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', () => {
+          // redirect to individual view
+          window.location.href = `view_entry.html?id=${entry.id}`;
+        });
         row.innerHTML = `
           <td>${entry.id}</td>
           <td>${entry.claim_number}</td>
@@ -61,10 +59,7 @@
           <td>${entry.property_address}</td>
           <td>${entry.date_of_inspection}</td>
           <td>${entry.time_of_inspection}</td>
-          <td>${entry.persons_present}</td>
-          <td>${entry.damage_description}</td>
           <td>${entry.estimated_cost}</td>
-          <td><a href="${entry.photo_url}" target="_blank">Photo</a></td>
         `;
         tbody.appendChild(row);
       });
@@ -72,3 +67,4 @@
   </script>
 </body>
 </html>
+

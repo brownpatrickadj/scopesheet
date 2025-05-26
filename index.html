@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
   <title>Scope Sheet Submission</title>
-
-  <!-- Load Supabase Library FIRST -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <h1>Submitting Scope Sheet...</h1>
 
-<script>
-  window.onload = () => {
-    const params = new URLSearchParams(window.location.search);
+  <script>
+    window.onload = async () => {
+      const supabase = window.supabase.createClient(
+        'https://hobhuqbsiqboovhoipeo.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
+      );
 
-    const formData = {
-      claim_number: params.get('claim_number'),
-      insured_name: params.get('insured_name'),
-      property_address: params.get('property_address'),
-      date_of_inspection: params.get('date_of_inspection'),
-      time_of_inspection: params.get('time_of_inspection'),
-      persons_present: params.get('persons_present'),
-      damage_description: params.get('damage_description'),
-      estimated_cost: params.get('estimated_cost'),
-      photo_url: params.get('photo_url'),
+      const params = new URLSearchParams(window.location.search);
+
+      const formData = {
+        claim_number: params.get('claim_number'),
+        insured_name: params.get('insured_name'),
+        property_address: params.get('property_address'),
+        date_of_inspection: params.get('date_of_inspection'),
+        time_of_inspection: params.get('time_of_inspection'),
+        persons_present: params.get('persons_present'),
+        damage_description: params.get('damage_description'),
+        estimated_cost: params.get('estimated_cost'),
+        photo_url: params.get('photo_url'),
+      };
+
+      const { data, error } = await supabase.from('scope_sheets').insert([formData]);
+
+      if (error) {
+        document.body.innerHTML = `<h2 style="color:red">❌ Error:</h2><pre>${error.message}</pre>`;
+        console.error(error);
+      } else {
+        document.body.innerHTML = `<h2 style="color:green">✅ Submission successful!</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
+        console.log(data);
+      }
     };
-
-    document.body.innerHTML = `<h2>🔍 Debug View</h2><pre>${JSON.stringify(formData, null, 2)}</pre>`;
-  };
-</script>
-
-
+  </script>
 </body>
 </html>

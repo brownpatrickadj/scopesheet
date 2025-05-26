@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scope Sheet Form</title>
+</head>
+<body>
+  <h1>Scope Sheet Form</h1>
+  <form id="scopeForm">
+    <label>Claim Number: <input type="text" name="claim_number" required /></label><br /><br />
+    <label>Insured Name: <input type="text" name="insured_name" required /></label><br /><br />
+    <label>Property Address: <input type="text" name="property_address" required /></label><br /><br />
+    <label>Date of Inspection: <input type="date" name="date_of_inspection" /></label><br /><br />
+    <label>Time of Inspection: <input type="time" name="time_of_inspection" /></label><br /><br />
+    <label>Person(s) Present: <input type="text" name="persons_present" /></label><br /><br />
+    <label>Damage Description:<br />
+      <textarea name="damage_description" rows="4" cols="40"></textarea>
+    </label><br /><br />
+    <label>Estimated Cost: <input type="number" name="estimated_cost" step="0.01" /></label><br /><br />
+    <label>Photo URL: <input type="text" name="photo_url" /></label><br /><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+  <script>
+    window.onload = () => {
+      const SUPABASE_URL = 'https://hobhuqbsiqboovhoipeo.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw';
+
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      const form = document.getElementById('scopeForm');
+      const message = document.getElementById('message');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        if (data.estimated_cost === '') {
+          data.estimated_cost = null;
+        } else {
+          data.estimated_cost = parseFloat(data.estimated_cost);
+        }
+
+        if (data.date_of_inspection === '') {
+          data.date_of_inspection = null;
+        }
+        if (data.time_of_inspection === '') {
+          data.time_of_inspection = null;
+        }
+
+        const { error } = await supabaseClient.from('scope_sheets').insert([data]);
+
+        if (error) {
+          message.textContent = 'Error: ' + error.message;
+          message.style.color = 'red';
+        } else {
+          message.textContent = 'Scope sheet submitted successfully!';
+          message.style.color = 'green';
+          form.reset();
+        }
+      });
+    };
+  </script>
+</body>
+</html>

@@ -40,7 +40,8 @@
         document.body.innerHTML = `<h2 style="color:red">Error: ${error.message}</h2>`;
         console.error('Insert Error:', error);
       } else {
-        document.body.innerHTML = `<h2 style="color:green">✅ Submission successful!</h2>`;
+        document.body.innerHTML = `<h2 style="color:green">✅ Submission successful!</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
+
         console.log('Insert Success:', data);
       }
     };

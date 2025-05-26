@@ -10,13 +10,8 @@
 <body>
   <h1>Submitting Scope Sheet...</h1>
 
- <script>
-  window.onload = async () => {
-    const supabase = window.supabase.createClient(
-      'https://hobhuqbsiqboovhoipeo.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvYmh1cWJzaXFib292aG9pcGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyODg3OTQsImV4cCI6MjA2Mzg2NDc5NH0.8iDzmTgUybI50e27fcIV0f3rjXxsxBOVKSH9btnY5dw'
-    );
-
+<script>
+  window.onload = () => {
     const params = new URLSearchParams(window.location.search);
 
     const formData = {
@@ -31,19 +26,10 @@
       photo_url: params.get('photo_url'),
     };
 
-    const { data, error } = await supabase
-      .from('scope_sheets')
-      .insert([formData]);
-
-    if (error) {
-      document.body.innerHTML = `<h2 style="color:red">❌ Error:</h2><pre>${error.message}</pre>`;
-      console.error(error);
-    } else {
-      document.body.innerHTML = `<h2 style="color:green">✅ Submission successful!</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
-      console.log(data);
-    }
+    document.body.innerHTML = `<h2>🔍 Debug View</h2><pre>${JSON.stringify(formData, null, 2)}</pre>`;
   };
 </script>
+
 
 </body>
 </html>

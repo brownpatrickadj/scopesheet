@@ -33,7 +33,7 @@ title: View Entry Form
     </label>
     <br>
     <label>Damage Description:
-      <textarea id="damage_description" rows="4"></textarea>
+      <br><textarea id="damage_description" rows="4"></textarea>
     </label>
     <br>
     <label>Estimated Cost:

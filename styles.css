@@ -9,6 +9,11 @@
 /*─────────────────────────────────────────────────────────────────────────────
   Base Styles
 ─────────────────────────────────────────────────────────────────────────────*/
+#site-header,
+#site-header .w3-bar {
+  padding: 0 !important;
+  margin: 0 !important;
+}
 body {
   font-family: "Poppins", sans-serif;
   background-color: #f9f9f9;

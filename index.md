@@ -3,6 +3,6 @@ layout: default
 title: Scope Sheet Manager Home
 ---
 <body>
-  <h1>📝 Adjuster Central V6</h1>
+  <h1>📝 Adjuster Central V7</h1>
   <p>Welcome to your central hub for submitting and reviewing scope sheets.</p>
 </body>

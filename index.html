@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>…</head>
+<body>
+  <div id="site-header"></div>
+  <script>
+    fetch('header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
+  <h1>📝 Adjuster Central MD</h1>
+</body>
+</html>

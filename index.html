@@ -6,9 +6,12 @@
   <title>Adjuster Central</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<div id="site-header"></div>
+<body>
+  <!-- Now this is correctly inside the body -->
+  <div id="site-header"></div>
+
   <script>
-     fetch('includes/header.html')
+    fetch('includes/header.html')
       .then(response => {
         if (!response.ok) {
           throw new Error(`Could not load header: ${response.status} ${response.statusText}`);
@@ -20,15 +23,14 @@
       })
       .catch(err => {
         console.error(err);
-        // fallback if header fails to load
         document.getElementById('site-header').innerHTML = `
           <div style="background:#900;color:white;padding:10px;">
             ⚠️ Header failed to load.
           </div>`;
       });
   </script>
-<body>
-  <h1>📝 Adjuster Central  HEADER FILE</h1>
+
+  <h1>📝 Adjuster Central HEADER FILE</h1>
   <p>Welcome to your central hub for submitting and reviewing scope sheets.</p>
 </body>
 </html>

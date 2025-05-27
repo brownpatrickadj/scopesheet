@@ -11,39 +11,39 @@ title: View Entry Form
     <label>Claim Number:
       <input type="text" id="claim_number" required>
     </label>
-
+    <br>
     <label>Insured Name:
       <input type="text" id="insured_name" required>
     </label>
-
+    <br>  
     <label>Property Address:
       <input type="text" id="property_address">
     </label>
-
+    <br>
     <label>Date of Inspection:
       <input type="date" id="date_of_inspection">
     </label>
-
+    <br>
     <label>Time of Inspection:
       <input type="time" id="time_of_inspection">
     </label>
-
+    <br>
     <label>Persons Present:
       <input type="text" id="persons_present">
     </label>
-
+    <br>
     <label>Damage Description:
       <textarea id="damage_description" rows="4"></textarea>
     </label>
-
+    <br>
     <label>Estimated Cost:
       <input type="number" id="estimated_cost" step="0.01">
     </label>
-
+    <br>
     <label>Photo URL:
       <input type="url" id="photo_url">
     </label>
-
+    <br>    <br>
     <button type="submit">Save Changes</button>
     <button type="button" onclick="window.history.back()">Cancel</button>
   </form>

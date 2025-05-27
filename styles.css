@@ -9,11 +9,7 @@
 /*─────────────────────────────────────────────────────────────────────────────
   Base Styles
 ─────────────────────────────────────────────────────────────────────────────*/
-#site-header,
-#site-header .w3-bar {
-  padding: 0 !important;
-  margin: 0 !important;
-}
+
 body {
   font-family: "Poppins", sans-serif;
   background-color: #f9f9f9;
@@ -37,8 +33,6 @@ h1, h2 {
 .nav-buttons {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;               /* 20px */
-    margin: 2.5rem auto;        /* 40px top/bottom, auto sides */
 }
 
 .nav-buttons a button {

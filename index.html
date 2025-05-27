@@ -4,7 +4,7 @@
 <body>
   <div id="site-header"></div>
   <script>
-    fetch('header.html')
+    fetch('includes/header.html')
       .then(r => r.text())
       .then(html => {
         document.getElementById('site-header').innerHTML = html;

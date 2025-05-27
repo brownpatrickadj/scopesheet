@@ -5,7 +5,7 @@ title: View Submissions
 <body>
   <h1>Submitted Scope Sheets</h1>
   <div id="loading">Loading...</div>
-  <table id="submissions" style="display: none;" class="w3-table-all w3-card-4" style="max-width:1500px;">
+  <table id="submissions" style="display: none;" class="w3-table-all w3-card-4">
     <thead>
       <tr>
         <th>ID</th>

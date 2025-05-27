@@ -11,7 +11,7 @@
   <div id="site-header"></div>
 
   <script>
-    fetch('includes/header.html')
+    fetch('/includes/header.html')
       .then(response => {
         if (!response.ok) {
           throw new Error(`Could not load header: ${response.status} ${response.statusText}`);
@@ -30,7 +30,7 @@
       });
   </script>
 
-  <h1>📝 Adjuster Central 2</h1>
+  <h1>📝 Adjuster Central V3</h1>
   <p>Welcome to your central hub for submitting and reviewing scope sheets.</p>
 </body>
 </html>

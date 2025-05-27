@@ -65,7 +65,7 @@ h1, h2 {
 
 #content {
   padding: 1px !important;
-  margin: 0 !important;
+  margin: 0 auto;
 }
 /*─────────────────────────────────────────────────────────────────────────────
   Responsive Adjustments

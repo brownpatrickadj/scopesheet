@@ -2,10 +2,10 @@
 layout: default
 title: View Submissions
 ---
-<body class="w3-card-4" style="max-width:1500px;">
+<body>
   <h1>Submitted Scope Sheets</h1>
   <div id="loading">Loading...</div>
-  <table id="submissions" style="display: none;" class="w3-table-all">
+  <table id="submissions" style="display: none;" class="w3-table-all w3-card-4" style="max-width:1500px;">
     <thead>
       <tr>
         <th>ID</th>
